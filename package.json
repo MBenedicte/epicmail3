@@ -28,7 +28,7 @@
     "nyc": "^13.3.0"
   },
   "scripts": {
-    "test": " nyc --require babel-core/register mocha ./SERVER/test/*.test.js --timeout 1000 --exit",
+    "test": " nyc --require babel-core/register mocha ./SERVER/test/*.test.js --timeout 2000 --exit",
     "start": " babel-node SERVER/index.js",
     "dev": "nodemon --exec babel-node  ./SERVER/index.js",
     "coveralls": "npm test  && nyc report --reporter=text-lcov | coveralls",

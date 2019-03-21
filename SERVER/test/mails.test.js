@@ -1,143 +1,91 @@
 import chai, { expect } from 'chai';
 import chaiHttp from 'chai-http';
 import server from '../index';
-import allmails from '../models/Mails'
+
 
 const should = chai.should();
 chai.use(chaiHttp);
 
-   describe('/GET  all mails', () => {
-      it('it should get all mails', (done) => {
-         chai
-            .request(server)
-            .get('/api/v1/messages')
-            .send(allmails)
-            .end((err, res) => {
-               should.not.exist(err);
-               res.should.have.status(200);
-               res.body.should.be.a('object');
-               expect(res.body.data).to.be.a("array");
-               expect(res.body.data[0].subject).to.be.a("string");
-               expect(res.body.data[0].message).to.be.a("string")
-               expect(res.body.data[0].senderId).to.be.a("number")
-               expect(res.body.data[0].receiverId).to.be.a("number")
-               expect(res.body.data[0].parentMessageId).to.be.a("number")
-               expect(res.body).to.have.haveOwnProperty("data");
-               done();
-            });
-      });
-      it('Should return an error for invalid user data',(done)=>{
-         const newMail = {
-            senderId: 1,
-            receiver_Id:1,
-            subject: "jdjhsdg",
-            message: "dsbjhvs",
-            parentMessageId: 1
-        };
+describe('/SEND MAIL : Send a mail',()=>{
+      it('it should not send a message to a user that not exist', (done) => {
+        
+        let token = ''
          chai.request(server)
-             .post('/api/v1/messages/send')
-             .send(newMail)
-             .end((err,res)=>{
-               res.should.have.status(201);
-               res.body.should.be.a('object')
-               res.body.should.haveOwnProperty("message")
-               res.body.should.haveOwnProperty("status"); 
-              
-             })
-             done();
-           })
-     
-   });
+          .post('/api/v2/messages/3')
+          .set('x-access-token', token)
+          .send({
+            subject: 'hello there',
+            message: 'This is just testing'
+          })
+          .end((err, res) => {
+            should.not.exist(err)
+            res.should.have.status(404);
+            res.body.should.be.a('object');
+            done();
+          });
+      });
 
    
-   //unread mails
+})
 
-   describe('/unread/:id',()=>{
-      it('It should throw a message that a user does not exist',done=>{
-         chai
-               .request(server)
-               .get('/api/messages/unread/-1')
-               .end((err, res)=>{
-                 res.should.have.status(404)
-               })      
+describe('/GET : mail by id for a user', () => {
+   it('it should get a particular messages for a user', (done) => {
+     let token='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJiZWJlbmVAYWlsLmNvbSIsImlhdCI6MTU1MzIwNTg5MH0.s3zypyfJqbNE0fPtxa2Q7986AtR-m4LalMtQDtOMCUs'
+      chai.request(server)
+       .get('/api/v2/messages/1')
+       .set('x-access-token', token)
+       .end((err, res) => {
+         res.should.have.status(200);
+         res.body.should.be.a('object');
+         
          done();
-      })
-   })
-   //sent mails
-   describe('/Sent/:id',()=>{
-      it('It should throw a message that a user does not exist',done=>{
-         chai
-               .request(server)
-               .get('/api/messages/sent/-1')
-               .end((err, res)=>{
-                 res.should.have.status(404)
-               })      
+       });
+   });
+});
+
+describe('/GET : all mails for a user', () => {
+   it('it should get all mails for a user', (done) => {
+     let token='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJiZWJlbmVAYWlsLmNvbSIsImlhdCI6MTU1MzIwNTg5MH0.s3zypyfJqbNE0fPtxa2Q7986AtR-m4LalMtQDtOMCUs'
+      chai.request(server)
+       .get('/api/v2/messages')
+       .set('x-access-token', token)
+       .end((err, res) => {
+         res.should.have.status(200);
+         res.body.should.be.a('object');
+         
          done();
-      })
-   })
+       });
+   });
+});
 
-
-
-   //Mail by Id
-   describe('/Get/:id ==> Get mail by id',()=>{
-      it('It should throw a message that mail does not exist',done=>{
-         chai
-               .request(server)
-               .get('/api/v1/messages/-1')
-               .end((err,res)=>{
-                  res.should.have.status(404)
-                  res.body.should.have.property('status')
-                  res.body.should.have.property('message')
-                  expect(res.body.message).eql("Email with the given id does not exist")
-
-               })
-         done()
-      })
-      it('It should display a mail by its id',done=>{
-         chai
-               .request(server)
-               .get('/api/v1/messages/1')
-               .end((err,res)=>{
-                  res.should.have.status(200)
-                  res.body.should.have.property('status')
-                  res.body.should.have.property('message')
-                  expect(res.body.message).eql("Mail fetched successfully")
-
-               })
-         done()
-      })
-   })
-
-   //Delete mail 
-
-   describe('/Delete/:id mail', ()=>{
-      it('It should throw the mail does not',done=>{
-         chai
-               .request(server)
-               .delete('/api/v1/messages/-1')
-               .end((err,res)=>{
-                  res.should.have.status(404)
-                  res.body.should.have.property('status')
-                  res.body.should.have.property('message')
-                  expect(res.body.message).eql('Email with the given id does not exist')
-               })
+describe('/GET : all mails for a user', () => {
+   it('it should get all mails for a user', (done) => {
+     let token=''
+      chai.request(server)
+       .get('/api/v2/messages/1')
+       .set('x-access-token', token)
+       .end((err, res) => {
+         res.should.have.status(400);
+         res.body.should.be.a('object');
+         
          done();
-      })
+       });
+   });
+});
 
-      it('It should throw the mail does not',done=>{
-         chai
-               .request(server)
-               .delete('/api/v1/messages/1')
-               .end((err,res)=>{
-                  res.should.have.status(200)
-                  res.body.should.have.property('status')
-                  res.body.should.have.property('message')
-                  expect(res.body.message).eql('The email was deleted')
-               })
+describe('/GET : all mails for a user', () => {
+   it('it should get all mails for a user', (done) => {
+     let token=''
+      chai.request(server)
+       .get('/api/v2/messages')
+       .set('x-access-token', token)
+       .end((err, res) => {
+         res.should.have.status(400);
+         res.body.should.be.a('object');
+         
          done();
-            })
-      
-   })
-  
-      
+       });
+   });
+});
 
+   

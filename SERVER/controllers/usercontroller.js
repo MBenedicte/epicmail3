@@ -56,24 +56,22 @@ class User{
 
     async userLogin(req, res){
         try {
-           
-            // fetch user details 
+
             const userQuery = `SELECT * FROM users where username = $1`;
             const params = [req.body.username];
             const dbQuery = await db.query(userQuery, params);
             const user = dbQuery.rows[0];
             if(!user) {
-                return res.send(400).json({
+                return res.status(400).json({
                     status: 400,
-                    message: 'Invalid username '
+                    message: 'Invalid username'
                 })
                 
             }
-            // compare password provide that user exist
+            
             const validPassword = comparePassword(user.password, req.body.password);
-            // throw (terminate the req if user does not exist)
             if(!validPassword) {
-                return res.send(400).json({
+                return res.status(400).json({
                     status: 400,
                     message: 'Invalid password'
                 })
