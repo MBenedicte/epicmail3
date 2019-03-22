@@ -19,24 +19,39 @@ describe("Test validator helper", () => {
             username: "iwacu",
       }
       
-      const result = validation.validateReistration(user.password)      
+      const result = validation.validateRegistration(user.password)      
       result.should.not.eql('')
       });
 
-   //    it("It sould throw an error that password should not be empty", () => {
-   //       const user =  {
-   //          firstname: "benedicte",
-   //          lastname: "msyugds",
-   //          email: "benemusa@.com",
-   //          password: "",
-   //          username: "iwacu",
-   //    }
+      describe("/Password", () => {
+         it("It sould throw an error that the firstname should not be empty ", () => {
+         const user =  {
+            firstname:"",
+            lastname: "msyugds",
+            email: "benemusa@gmail.com",
+            password: "",
+            username: "iwacu",
+      }
+      
+      const result = validation.validateRegistration(user.password)      
+      result.should.not.eql('')
+      });
+   }) 
 
-   //     validation.validateReistration(user.password).should.be.a("object");
-   //     validation.validateReistration(user.password).should.not.eql("");
-   //    });
-   //   });
-  
-    
+   describe("/Password", () => {
+      it("It sould throw an error that the lastname should not be empty ", () => {
+      const user =  {
+         firstname:"sdjhsd",
+         lastname: "",
+         email: "benemusa@gmail.com",
+         password: "",
+         username: "iwacu",
+   }
+   
+   const result = validation.validateRegistration(user.password)      
+   result.should.not.eql('')
+   });
+}) 
+
    })
  })
