@@ -2,11 +2,11 @@ import { verifyToken } from '../Helper/auth';
 
 export function requireAuth(req, res, next) {
     console.log(req.body);
-    const token = req.get('x-access-token');
+    const token = req.get('x-admin-token');
     
     if(!token) {
-        return res.status(403).send({
-            status: 403,
+        return res.status(400).send({
+            status: 400,
             message:"Access denied"
         })
     }else {
@@ -14,13 +14,13 @@ export function requireAuth(req, res, next) {
             const decoded = verifyToken(token);
             req.user = {
                 id: decoded.id,
-                email: decoded.email
+                role: decoded.role
             };
             next();
         }catch( error ) {
             return res.status(400).send({
                 status: 400,
-                message: "User should be authenticated to perform this action"
+                message: "Access denied"
             })
         }
     }
