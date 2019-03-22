@@ -29,7 +29,8 @@ class Group{
                 return res.status(201).send({
                   status: 201,
                   data: rows[0],
-                  adminToken: newtoken
+                  adminToken: newtoken,
+                  message: 'Group created successfully'
                 });
               }
               return res.status(400).send({
