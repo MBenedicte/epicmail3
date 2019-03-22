@@ -1,4 +1,5 @@
 import db from '../database';
+import { SSL_OP_CRYPTOPRO_TLSEXT_BUG } from 'constants';
 
 class Messages{
     
@@ -18,7 +19,7 @@ class Messages{
         if (checkUser.rows.length <= 0) {
           return res.status(404).json({
             status: 404,
-            error: 'Sorry, this user does not exist',
+            message: 'Sorry, this user does not exist',
           });
         }
 
@@ -81,7 +82,10 @@ class Messages{
           error: 'Mail not found...',
         });
       } catch (error) {
-        console.log(error);
+       res.status(500).send({
+         status:500,
+         message: 'Sorry, the server is not working well'
+       })
       }
     }
     
