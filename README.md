@@ -67,6 +67,10 @@ DELETE: /api/v2/deletegroup/:id
 
 POST: /api/v2/addnewuser/:id
 
+### DELETE A USER
+
+DELETE: /api/v2/:id/delete/:id
+
 
 # 4. Clone the application from
 

@@ -42,6 +42,31 @@ class Group{
             }
         }
 
+        async deleteGroup(req, res) {
+          const deleteQuery = 'DELETE FROM groups WHERE id = $1 AND user_id = $2 RETURNING *';
+          try {
+             const {
+               rows
+             } = await db.query(deleteQuery, [req.params.id, req.user.id]);
+      
+             if (rows.length > 0) {
+               return res.json({
+                 status: 204,
+                 message: 'group deleted !',
+               });
+             }
+      
+             return res.status(404).json({
+               status: 404,
+               error: 'group doesn\'t exist',
+             });
+           } catch (error) {
+             console.log(error)
+           }
+        }
+  
+
+
         async getAllgroups(req, res) {
             const findAllQuery = 'SELECT * FROM groups WHERE user_id = $1';
             try {
@@ -105,8 +130,12 @@ class Group{
            }
         
          } catch (error) {
-           return res.json({
+           return res.status(204).json({
              status: 204,
+             data:{
+               user_id: req.body.user_id,
+               user_role: req.body.user_role
+             },
              messages: 'The user registered successfully'
            });
    
@@ -114,29 +143,29 @@ class Group{
           }
         
         
-        //   // DELETE GROUP MEMBER
-        //   async deleteGroupMember(req, res) {
-        //     const deleteQuery = 'DELETE FROM groupMember WHERE groupId = $1 AND userId = $2  RETURNING *';
-        //     try {
-        //        const {
-        //          rows
-        //        } = await pool.query(deleteQuery, [req.params.groupId, req.params.userId]);
+          
+          async deleteMember(req, res) {
+            const deleteQuery = 'DELETE FROM groups WHERE id= $1 AND user_id = $2  RETURNING *';
+            try {
+               const {
+                 rows
+               } = await db.query(deleteQuery, [req.params.id, req.params.user_id]);
         
-        //        if (rows.length > 0) {
-        //          return res.json({
-        //            status: 200,
-        //            message: 'user deleted !',
-        //          });
-        //        }
+               if (rows.length > 0) {
+                 return res.json({
+                   status: 200,
+                   message: 'user deleted !',
+                 });
+               }
         
-        //        return res.status(404).json({
-        //          status: 404,
-        //          error: 'user doesn\'t exist',
-        //        });
-        //      } catch (error) {
-        //        console.log(error)
-        //      }
-        //   }
+               return res.status(404).json({
+                 status: 404,
+                 error: 'user doesn\'t exist',
+               });
+             } catch (error) {
+               console.log(error)
+             }
+          }
         
         //   // UPDATE A GROUP NAME
         //   async updateGroup(req, res) {
@@ -210,30 +239,7 @@ class Group{
         //     }
         // }
         
-          // DELETE A GROUP I OWN
-          async deleteGroup(req, res) {
-            const deleteQuery = 'DELETE FROM groups WHERE id = $1 AND user_id = $2 RETURNING *';
-            try {
-               const {
-                 rows
-               } = await db.query(deleteQuery, [req.params.id, req.user.id]);
-        
-               if (rows.length > 0) {
-                 return res.json({
-                   status: 204,
-                   message: 'group deleted !',
-                 });
-               }
-        
-               return res.status(404).json({
-                 status: 404,
-                 error: 'group doesn\'t exist',
-               });
-             } catch (error) {
-               console.log(error)
-             }
-          }
-    
+         
 
 }
 
