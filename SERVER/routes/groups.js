@@ -8,4 +8,5 @@ const groupRouter=Router();
 groupRouter.post('/createGroup',requireAuth,Group.create);
 groupRouter.get('/allGroups',requireAuth,Group.getAllgroups);
 groupRouter.delete('/deletegroup/:id',requireAuth, adminAuth,Group.deleteGroup);
+groupRouter.post('/addnewuser/:id',requireAuth,adminAuth,Group.addMember);
 export default groupRouter;
