@@ -1,6 +1,6 @@
 App logo
 
-![EPIC MAIL](UI/IMAGES/logo&name1.png)
+![EPIC MAIL](./images/logo&name1.png)
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/92ffb9070918248ca513/maintainability)](https://codeclimate.com/github/MBenedicte/EPICMail/maintainability)
 [![Build Status](https://travis-ci.org/MBenedicte/EPICMail.svg?branch=develop)](https://travis-ci.org/MBenedicte/EPICMail)
@@ -16,7 +16,7 @@ A web app that helps people exchange messages/information over the internet.
 
 ### [Gh-pages](https://mbenedicte.github.io/EPICMail/)
 
-### [Server on heroku](https://epicmail-vi.herokuapp.com/)
+### [Server on heroku](https://epic-mail3.herokuapp.com/)
 
 
 # 2 . Built with
@@ -31,42 +31,42 @@ Database: Postgres
 
 # 3 . Endpoints
 
- ### Get all received mails: 
+ ### USER SIGN UP: 
 
- Get: /api/v1/messages 
+ POST: /api/v2/auth/signup 
 
- ### Get all sent mails: Get: 
+ ### USER LOGIN:  
  
- Get: /api/v1/messages/sent
+ POST: /api/v2/auth/login
 
- ### Get all unread mails:
+ ### SEND EMAIL
  
-Get: /api/v1/messges/unread
+POST: /api/v2/message/:id
 
-### Get mail by its id
+### ALL MAILS THE USER SENT
 
-Get: /api/v1/messages/:id
+GET: /api/v2/messages/
 
-### Delete mail
+### GET MAIL BY ITS ID
 
-Delete: /api/v1/messages/:id
+Delete: /api/v2/messages/:id
 
-### Register a user
+### CREATE A GROUP
 
-Post: /api/v1/auth/signup
+POST: /api/v2/createGroup
 
-### User login
+### ALL GROUPS THE USER CREATED
 
-Post: /api/v1/auth/login
+GET: /api/v1/allGroups
 
-### Display all users
+### DELETE A GROUP
 
-Get: /api/v1/users
+DELETE: /api/v1/deletegroup/:id
 
 
 # 4. Clone the application from
 
-[https://github.com/MBenedicte/EPICMail](https://github.com/MBenedicte/EPICMail)
+[https://github.com/MBenedicte/EPICMail](https://github.com/MBenedicte/epicmail3)
 
 
 # 5 . Commnands to run:
