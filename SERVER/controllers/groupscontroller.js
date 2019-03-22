@@ -65,54 +65,53 @@ class Group{
             }
           }
         
+          async addMember(req, res) {
         
-        //   // ADD GROUP MEMBER
-        //   async creategroupMember(req, res) {
+          try {
+           const row = await db.query('SELECT * FROM groups WHERE id = $1 AND user_id = $2', [req.params.id, req.user.id]);
+           if (row.length === 0) {
+             return res.status(404).json({
+               status: 404,
+               message: 'You have no group so far'
+             });
+           }
+           const checkUserId = await db.query('SELECT * FROM users WHERE id = $1', [req.body.id]);
+           if (checkUserId === 0) {
+             return res.status(404).json({
+               status: 404,
+               message: 'the user you want to add does not exist.'
+             });
+           }
         
-        //   try {
-        //    const row = await db.query('SELECT * FROM groups WHERE id = $1 AND user_id = $2', [req.params.id, req.user.id]);
-        //    if (row.length === 0) {
-        //      return res.status(404).json({
-        //        status: 404,
-        //        message: 'You have no group'
-        //      });
-        //    }
-        //    const checkUserId = await db.query('SELECT * FROM users WHERE id = $1', [req.body.userId]);
-        //    if (checkUserId === 0) {
-        //      return res.status(404).json({
-        //        status: 404,
-        //        message: 'the user you want to add does not exist.'
-        //      });
-        //    }
+           const text = `INSERT INTO
+                   groups(id, user_role, user_id)
+                   VALUES($1, $2, $3)
+                   returning *`;
         
-        //    const text = `INSERT INTO
-        //            groupMember(userId, userRole, groupId)
-        //            VALUES($1, $2, $3)
-        //            returning *`;
-        
-        //    const values = [
-        //      req.body.userId,
-        //      req.body.userRole,
-        //      req.params.groupId
-        //    ];
+           const values = [
+            req.params.id,
+             req.body.user_id,
+             req.body.user_role,
+             
+           ];
         
         
-        //    const { rows } = await pool.query(text, values);
-        //    if (rows.length > 0) {
-        //      return res.status(201).json({
-        //        status: 201,
-        //        data: rows
-        //      });
-        //    }
+           const { rows } = await db.query(text, values);
+           if (rows.length > 0) {
+             return res.status(201).json({
+               status: 201,
+               data: rows
+             });
+           }
         
-        //  } catch (error) {
-        //    return res.json({
-        //      status: 204,
-        //      error: 'This user is not registered'
-        //    });
-        //    console.log(error);
-        //     }
-        //   }
+         } catch (error) {
+           return res.json({
+             status: 204,
+             messages: 'The user registered successfully'
+           });
+   
+            }
+          }
         
         
         //   // DELETE GROUP MEMBER

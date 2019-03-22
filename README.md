@@ -3,7 +3,7 @@ App logo
 ![EPIC MAIL](./images/logo&name1.png)
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/92ffb9070918248ca513/maintainability)](https://codeclimate.com/github/MBenedicte/EPICMail/maintainability)
-[![Build Status]https://travis-ci.org/MBenedicte/epicmail3.svg?branch=develop)](https://travis-ci.org/MBenedicte/EPICMail)
+[![Build Status](https://travis-ci.org/MBenedicte/epicmail3.svg?branch=develop)](https://travis-ci.org/MBenedicte/EPICMail)
 [![Coverage Status](https://coveralls.io/repos/github/MBenedicte/EPICMail/badge.svg?branch=develop)](https://coveralls.io/github/MBenedicte/EPICMail?branch=develop)
 
 ![EPIC MAIL](./images/Epic_mail_landingp.png)
@@ -21,7 +21,7 @@ A web app that helps people exchange messages/information over the internet.
 
 # 2 . Built with
 
- Front-end: HTML, CSS
+Front-end: HTML, CSS
 
 Back-end: Nodejs, express
 
@@ -57,11 +57,15 @@ POST: /api/v2/createGroup
 
 ### ALL GROUPS THE USER CREATED
 
-GET: /api/v1/allGroups
+GET: /api/v2/allGroups
 
 ### DELETE A GROUP
 
-DELETE: /api/v1/deletegroup/:id
+DELETE: /api/v2/deletegroup/:id
+
+### ADD A GROUP MEMBER
+
+POST: /api/v2/addnewuser/:id
 
 
 # 4. Clone the application from
