@@ -65,7 +65,7 @@ describe('/GET : all mails for a user', () => {
        .get('/api/v2/messages/1')
        .set('x-access-token', token)
        .end((err, res) => {
-         res.should.have.status(400);
+         res.should.have.status(403);
          res.body.should.be.a('object');
          
          done();
@@ -80,7 +80,7 @@ describe('/GET : all mails for a user', () => {
        .get('/api/v2/messages')
        .set('x-access-token', token)
        .end((err, res) => {
-         res.should.have.status(400);
+         res.should.have.status(403);
          res.body.should.be.a('object');
          
          done();
