@@ -3,7 +3,7 @@ App logo
 ![EPIC MAIL](./images/logo&name1.png)
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/92ffb9070918248ca513/maintainability)](https://codeclimate.com/github/MBenedicte/EPICMail/maintainability)
-[![Build Status](https://travis-ci.org/MBenedicte/EPICMail.svg?branch=develop)](https://travis-ci.org/MBenedicte/EPICMail)
+[![Build Status]https://travis-ci.org/MBenedicte/epicmail3.svg?branch=develop](https://travis-ci.org/MBenedicte/EPICMail)
 [![Coverage Status](https://coveralls.io/repos/github/MBenedicte/EPICMail/badge.svg?branch=develop)](https://coveralls.io/github/MBenedicte/EPICMail?branch=develop)
 
 ![EPIC MAIL](UI/IMAGES/Epic_mail_landingp.png)

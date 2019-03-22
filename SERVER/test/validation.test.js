@@ -23,7 +23,7 @@ describe("Test validator helper", () => {
       result.should.not.eql('')
       });
 
-      describe("/Password", () => {
+      describe("/Firstname", () => {
          it("It sould throw an error that the firstname should not be empty ", () => {
          const user =  {
             firstname:"",
@@ -38,7 +38,7 @@ describe("Test validator helper", () => {
       });
    }) 
 
-   describe("/Password", () => {
+   describe("/Lastname", () => {
       it("It sould throw an error that the lastname should not be empty ", () => {
       const user =  {
          firstname:"sdjhsd",
