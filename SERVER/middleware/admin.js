@@ -7,14 +7,14 @@ export function requireAuth(req, res, next) {
     if(!token) {
         return res.status(400).send({
             status: 400,
-            message:"Invalid token"
+            message:"Access denied"
         })
     }else {
         try { // jwt.verify might throw error
             const decoded = verifyToken(token);
             req.user = {
                 id: decoded.id,
-                email: decoded.email
+                role: decoded.role
             };
             next();
         }catch( error ) {

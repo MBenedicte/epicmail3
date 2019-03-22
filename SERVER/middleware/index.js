@@ -5,9 +5,9 @@ export function requireAuth(req, res, next) {
     const token = req.get('x-access-token');
     
     if(!token) {
-        return res.status(400).send({
-            status: 400,
-            message:"Invalid token"
+        return res.status(403).send({
+            status: 403,
+            message:"Access denied"
         })
     }else {
         try { // jwt.verify might throw error
