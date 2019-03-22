@@ -1,6 +1,6 @@
 import { verifyToken } from '../Helper/auth';
 
-export function requireAuth(req, res, next) {
+export function adminAuth(req, res, next) {
     console.log(req.body);
     const token = req.get('x-admin-token');
     
