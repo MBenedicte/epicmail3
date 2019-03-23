@@ -167,77 +167,7 @@ class Group{
              }
           }
         
-        //   // UPDATE A GROUP NAME
-        //   async updateGroup(req, res) {
-        //     const findOneQuery = 'SELECT * FROM groups WHERE id = $1 AND ownerId = $2';
-        //      const updateOneQuery =`UPDATE groups
-        //        SET name = $1, role = $2, createdOn = $3
-        //        WHERE id = $4 AND ownerId = $5 returning *`;
-        //      try {
-        //        const { rows } = await pool.query(findOneQuery, [req.params.id, req.user.id]);
-        //        if(!rows[0]) {
-        //          return res.status(404).send({'message': 'group not found'});
-        //        }
-        //        const values = [
-        //          req.body.name || rows[0].name,
-        //          req.body.role || rows[0].role,
-        //          moment().format('LL'),
-        //          req.params.id,
-        //          req.user.id
-        //        ];
-        //        const response = await pool.query(updateOneQuery, values);
-        //        return res.status(200).send(response.rows[0]);
-        //      } catch(err) {
-        //        return res.status(400).send(err);
-        //  }
-        // }
         
-        
-        // // SEND MESSAGE TO GROUP
-        // async createGroupMessage(req, res) {
-        //     const text = `INSERT INTO
-        //       groupMessages(subject, message, parentMessageId, status, senderId, groupId, createdOn)
-        //       VALUES($1, $2, $3, $4, $5, $6, $7)
-        //       returning *`;
-        //     const values = [
-        //       req.body.subject,
-        //       req.body.message,
-        //       uuidv4(),
-        //       req.body.status,
-        //       req.user.id,
-        //       req.params.groupId,
-        //       moment().format('LL')
-        //     ];
-        
-        //     try {
-        //       const checkUser = await pool.query('SELECT * FROM groups WHERE id = $1', [req.params.groupId]);
-        
-        //       if (checkUser.rows.length <= 0) {
-        //         return res.status(404).json({
-        //           status: 404,
-        //           error: 'Sorry, this group doesn\'t exist',
-        //         });
-        //       }
-        
-        //       const {
-        //         rows
-        //       } = await pool.query(text, values);
-        
-        //       if (rows.length > 0) {
-        //         return res.status(201).json({
-        //           status: 201,
-        //           data: rows[0],
-        //         });
-        //       }
-        
-        //       return res.status(400).json({
-        //         status: 400,
-        //         error: 'message not sended!',
-        //       });
-        //     } catch (error) {
-        //       console.log(error);
-        //     }
-        // }
         
          
 
