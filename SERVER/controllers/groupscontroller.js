@@ -9,7 +9,7 @@ class Group{
      async create(req, res) {
        
             try {
-                  console.log(req.user.id)
+       
                     const text = `INSERT INTO
                       groups(name, user_role, createdon, user_id)
                       VALUES($1, $2, $3, $4)
